@@ -20,7 +20,7 @@ import com.longkd.yourdailypluse.articles.ArticlesViewModel
  * @Since: 17:17 - 8/3/25
  */
 @Composable
-fun AppScaffold(articlesViewModel: ArticlesViewModel) {
+fun AppScaffold() {
     val navController = rememberNavController()
 
     Scaffold {
@@ -28,8 +28,7 @@ fun AppScaffold(articlesViewModel: ArticlesViewModel) {
             navController = navController,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it),
-            articlesViewModel = articlesViewModel
+                .padding(it)
         )
     }
 }
@@ -37,8 +36,7 @@ fun AppScaffold(articlesViewModel: ArticlesViewModel) {
 @Composable
 fun AppNavHost(
     navController: NavHostController,
-    modifier: Modifier,
-    articlesViewModel: ArticlesViewModel
+    modifier: Modifier
 ) {
     NavHost(
         navController = navController,
@@ -49,8 +47,7 @@ fun AppNavHost(
             ArticlesScreen(
                 onAboutButtonClick = {
                     navController.navigate(Screens.ABOUT_DEVICE.route)
-                },
-                articlesViewModel = articlesViewModel
+                }
             )
         }
 

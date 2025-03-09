@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.longkd.yourdailypluse.articles.Article
 import com.longkd.yourdailypluse.articles.ArticlesViewModel
+import org.koin.androidx.compose.getViewModel
 
 /**
  * @Author: longkd
@@ -40,7 +41,7 @@ import com.longkd.yourdailypluse.articles.ArticlesViewModel
 @Composable
 fun ArticlesScreen(
     onAboutButtonClick: () -> Unit,
-    articlesViewModel: ArticlesViewModel,
+    articlesViewModel: ArticlesViewModel = getViewModel(),
 ) {
     val articlesState = articlesViewModel.articlesState.collectAsState()
 
@@ -85,7 +86,7 @@ fun ArticlesListView(articles: List<Article>) {
 }
 
 @Composable
-fun  ArticleItemView(article: Article) {
+fun ArticleItemView(article: Article) {
 
     Column(
         modifier = Modifier

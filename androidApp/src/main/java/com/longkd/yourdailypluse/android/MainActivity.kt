@@ -12,14 +12,14 @@ import com.longkd.yourdailypluse.articles.ArticlesViewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val articlesViewModel: ArticlesViewModel by viewModels()
+
         setContent {
             MyApplicationTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AppScaffold(articlesViewModel)
+                    AppScaffold()
                 }
             }
         }
