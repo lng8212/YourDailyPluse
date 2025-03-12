@@ -1,4 +1,4 @@
-package com.longkd.yourdailypluse.articles
+package com.longkd.yourdailypluse.articles.data
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

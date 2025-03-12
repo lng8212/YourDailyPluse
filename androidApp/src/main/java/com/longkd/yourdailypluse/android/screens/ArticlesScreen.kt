@@ -7,16 +7,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -30,8 +27,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.longkd.yourdailypluse.articles.Article
-import com.longkd.yourdailypluse.articles.ArticlesViewModel
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshState
+import com.longkd.yourdailypluse.articles.domain.Article
+import com.longkd.yourdailypluse.articles.presentation.ArticlesViewModel
 import org.koin.androidx.compose.getViewModel
 
 /**
@@ -47,13 +46,10 @@ fun ArticlesScreen(
 
     Column {
         AppBar(onAboutButtonClick)
-
-        if (articlesState.value.loading)
-            Loader()
         if (articlesState.value.error != null)
             ErrorMessage(articlesState.value.error!!)
         if (articlesState.value.articles.isNotEmpty())
-            ArticlesListView(articlesState.value.articles)
+            ArticlesListView(viewModel = articlesViewModel)
     }
 }
 
@@ -76,13 +72,18 @@ private fun AppBar(
 }
 
 @Composable
-fun ArticlesListView(articles: List<Article>) {
+fun ArticlesListView(viewModel: ArticlesViewModel) {
 
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(articles) { article ->
-            ArticleItemView(article = article)
+    SwipeRefresh(state = SwipeRefreshState(viewModel.articlesState.value.loading), onRefresh = {
+        viewModel.getArticles(true)
+    }) {
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            items(viewModel.articlesState.value.articles) { article ->
+                ArticleItemView(article = article)
+            }
         }
     }
+
 }
 
 @Composable
@@ -111,20 +112,6 @@ fun ArticleItemView(article: Article) {
             modifier = Modifier.align(Alignment.End)
         )
         Spacer(modifier = Modifier.height(4.dp))
-    }
-}
-
-@Composable
-fun Loader() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator(
-            modifier = Modifier.width(64.dp),
-            color = MaterialTheme.colorScheme.surfaceVariant,
-            trackColor = MaterialTheme.colorScheme.secondary,
-        )
     }
 }
 

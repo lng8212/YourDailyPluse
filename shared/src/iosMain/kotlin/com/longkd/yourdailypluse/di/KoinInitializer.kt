@@ -1,9 +1,8 @@
 package com.longkd.yourdailypluse.di
 
-import com.longkd.yourdailypluse.articles.ArticlesViewModel
+import com.longkd.yourdailypluse.articles.presentation.ArticlesViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import org.koin.core.context.KoinContext
 import org.koin.core.context.startKoin
 
 /**
@@ -12,7 +11,7 @@ import org.koin.core.context.startKoin
  */
 
 fun initKoin() {
-    val modules = sharedKoinModule
+    val modules = sharedKoinModule + databaseModule
 
     startKoin {
         modules(modules)

@@ -1,4 +1,4 @@
-package com.longkd.yourdailypluse.articles
+package com.longkd.yourdailypluse.articles.domain
 
 /**
  * @Author: longkd

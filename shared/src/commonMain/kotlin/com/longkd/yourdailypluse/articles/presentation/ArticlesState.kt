@@ -1,4 +1,6 @@
-package com.longkd.yourdailypluse.articles
+package com.longkd.yourdailypluse.articles.presentation
+
+import com.longkd.yourdailypluse.articles.domain.Article
 
 data class ArticlesState (
     val articles: List<Article> = listOf(),

@@ -1,8 +1,10 @@
 package com.longkd.yourdailypluse.articles.di
 
-import com.longkd.yourdailypluse.articles.ArticlesService
-import com.longkd.yourdailypluse.articles.ArticlesUseCase
-import com.longkd.yourdailypluse.articles.ArticlesViewModel
+import com.longkd.yourdailypluse.articles.data.ArticlesDataSource
+import com.longkd.yourdailypluse.articles.data.ArticlesRepository
+import com.longkd.yourdailypluse.articles.data.ArticlesService
+import com.longkd.yourdailypluse.articles.domain.ArticlesUseCase
+import com.longkd.yourdailypluse.articles.presentation.ArticlesViewModel
 import org.koin.dsl.module
 
 /**
@@ -22,6 +24,14 @@ val articlesModule = module {
 
     single<ArticlesViewModel> {
         ArticlesViewModel(get())
+    }
+
+    single<ArticlesDataSource> {
+        ArticlesDataSource(get())
+    }
+
+    single<ArticlesRepository> {
+        ArticlesRepository(get(), get())
     }
 
 }

@@ -5,4 +5,5 @@ plugins {
     alias(libs.plugins.kotlinAndroid).apply(false)
     alias(libs.plugins.kotlinMultiplatform).apply(false)
     kotlin("plugin.serialization") version "1.9.0" apply false
+    alias(libs.plugins.sqlDelight).apply(false)
 }

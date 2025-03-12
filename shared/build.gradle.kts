@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.sqlDelight)
     kotlin("plugin.serialization")
     id("co.touchlab.skie") version "0.4.19"
 }
@@ -39,6 +40,7 @@ kotlin {
                 implementation(libs.ktor.serialization)
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.koin.core)
+                implementation(libs.sql.coroutines.extensions)
             }
         }
 
@@ -46,12 +48,14 @@ kotlin {
             dependencies {
                 implementation(libs.androidx.lifecycle.viewmodel.ktx)
                 implementation(libs.ktor.client.android)
+                implementation(libs.sql.android.driver)
             }
         }
 
         val iosMain by getting {
             dependencies {
                 implementation(libs.ktor.client.darwin)
+                implementation(libs.sql.native.driver)
             }
         }
 
@@ -71,6 +75,13 @@ android {
     }
 }
 
+sqldelight {
+    databases {
+        create(name = "YourDailyPulseDatabase") {
+            packageName.set("longkd.yourdailypluse.db")
+        }
+    }
+}
 
 
 

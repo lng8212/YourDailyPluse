@@ -1,6 +1,6 @@
 package com.longkd.yourdailypluse.android.di
 
-import com.longkd.yourdailypluse.articles.ArticlesViewModel
+import com.longkd.yourdailypluse.articles.presentation.ArticlesViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

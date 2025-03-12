@@ -1,5 +1,7 @@
-package com.longkd.yourdailypluse.articles
+package com.longkd.yourdailypluse.articles.domain
 
+import com.longkd.yourdailypluse.articles.data.ArticleRaw
+import com.longkd.yourdailypluse.articles.data.ArticlesRepository
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
@@ -12,9 +14,9 @@ import kotlin.math.abs
  * @Author: longkd
  * @Since: 21:05 - 8/3/25
  */
-class ArticlesUseCase(private val service: ArticlesService) {
-    suspend fun getArticles(): List<Article> {
-        val articlesRaw = service.fetchArticles()
+class ArticlesUseCase(private val repo: ArticlesRepository) {
+    suspend fun getArticles(forceFetch: Boolean): List<Article> {
+        val articlesRaw = repo.getArticles(forceFetch)
         return mapArticles(articlesRaw)
     }
 

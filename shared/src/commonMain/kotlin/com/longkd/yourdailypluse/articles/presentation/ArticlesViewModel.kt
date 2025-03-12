@@ -1,13 +1,10 @@
-package com.longkd.yourdailypluse.articles
+package com.longkd.yourdailypluse.articles.presentation
 
 import com.longkd.yourdailypluse.BaseViewModel
-import io.ktor.client.HttpClient
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.serialization.kotlinx.json.json
+import com.longkd.yourdailypluse.articles.domain.ArticlesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 
 /**
  * @Author: longkd
@@ -27,9 +24,15 @@ class ArticlesViewModel(
         getArticles()
     }
 
-    private fun getArticles() {
+    fun getArticles(forceFetch: Boolean = false) {
         scope.launch {
-            val fetchedArticles = useCase.getArticles()
+            _articlesState.emit(
+                ArticlesState(
+                    loading = true,
+                    articles = _articlesState.value.articles
+                )
+            )
+            val fetchedArticles = useCase.getArticles(forceFetch)
             _articlesState.emit(ArticlesState(articles = fetchedArticles))
         }
     }
