@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.longkd.yourdailypluse.android.screens.AboutScreen
 import com.longkd.yourdailypluse.android.screens.ArticlesScreen
 import com.longkd.yourdailypluse.android.screens.Screens
+import com.longkd.yourdailypluse.android.screens.SourceScreen
 
 /**
  * @Author: longkd
@@ -45,6 +46,9 @@ fun AppNavHost(
             ArticlesScreen(
                 onAboutButtonClick = {
                     navController.navigate(Screens.ABOUT_DEVICE.route)
+                },
+                onSourceButtonClick = {
+                    navController.navigate(Screens.SOURCES.route)
                 }
             )
         }
@@ -53,6 +57,11 @@ fun AppNavHost(
             AboutScreen {
                 navController.popBackStack()
             }
+        }
+        composable(Screens.SOURCES.route) {
+            SourceScreen(onBackButtonClick = {
+                navController.popBackStack()
+            })
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.longkd.yourdailypluse.di
 
 import com.longkd.yourdailypluse.articles.di.articlesModule
+import com.longkd.yourdailypluse.source.di.sourceModule
 
 /**
  * @Author: longkd
@@ -9,5 +10,6 @@ import com.longkd.yourdailypluse.articles.di.articlesModule
 
 val sharedKoinModule = listOf(
     articlesModule,
+    sourceModule,
     networkModule
 )

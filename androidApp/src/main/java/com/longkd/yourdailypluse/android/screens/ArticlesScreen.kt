@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.List
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -40,12 +41,13 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun ArticlesScreen(
     onAboutButtonClick: () -> Unit,
+    onSourceButtonClick: () -> Unit,
     articlesViewModel: ArticlesViewModel = getViewModel(),
 ) {
     val articlesState = articlesViewModel.articlesState.collectAsState()
 
     Column {
-        AppBar(onAboutButtonClick)
+        AppBar(onAboutButtonClick, onSourceButtonClick)
         if (articlesState.value.error != null)
             ErrorMessage(articlesState.value.error!!)
         if (articlesState.value.articles.isNotEmpty())
@@ -57,10 +59,17 @@ fun ArticlesScreen(
 @Composable
 private fun AppBar(
     onAboutButtonClick: () -> Unit,
+    onSourceButtonClick: () -> Unit
 ) {
     TopAppBar(
         title = { Text(text = "Articles") },
         actions = {
+            IconButton(onClick = onSourceButtonClick) {
+                Icon(
+                    imageVector = Icons.Outlined.List,
+                    contentDescription = "Source Button"
+                )
+            }
             IconButton(onClick = onAboutButtonClick) {
                 Icon(
                     imageVector = Icons.Outlined.Info,
